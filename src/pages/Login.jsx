@@ -4,8 +4,10 @@ import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import Button from "../components/Shared/Button";
+import useAuth from "../hooks/UseAuth";
 
 const Login = () => {
+  const { loginWithEmailAndPassword } = useAuth();
   const [show, setShow] = useState(true);
 
   const {
@@ -15,7 +17,7 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
+    loginWithEmailAndPassword(data.email, data.password)
   };
 
   return (

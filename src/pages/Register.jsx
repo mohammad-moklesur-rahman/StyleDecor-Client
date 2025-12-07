@@ -1,29 +1,88 @@
-import { Link } from "react-router";
-import { useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { Link } from "react-router";
 import Button from "../components/Shared/Button";
 
-const Register = () => {
-  const [show, setShow] = useState(true);
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage } from "@cloudinary/react";
+import { auto } from "@cloudinary/url-gen/actions/resize";
+import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
 
+import axios from "axios";
+import useAuth from "../hooks/UseAuth";
+import { updateProfile } from "firebase/auth";
+
+const Register = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
+  const [show, setShow] = useState(true);
+  const [imagePublicId, setImagePublicId] = useState("");
+  const { signUpWithEmailAndPassWord, setUser } = useAuth();
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const cloudName = `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}`; // Cloudinary cloud name
+  const uploadPreset = `${import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET}`; // Cloudinary unsigned preset
+
+  // Cloudinary instance for display
+  const cld = new Cloudinary({ cloud: { cloudName } });
+  const uploadedImg = imagePublicId
+    ? cld
+        .image(imagePublicId)
+        .format("auto")
+        .quality("auto")
+        .resize(auto().gravity(autoGravity()).width(200).height(200))
+    : null;
+
+  // Upload image to Cloudinary via API
+  const uploadPhoto = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
+
+    try {
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        formData
+      );
+      setImagePublicId(res.data.public_id);
+      setValue("photo", res.data.secure_url); // store URL in RHF
+    } catch (err) {
+      console.error("Cloudinary upload error:", err);
+    }
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      // Create Firebase user
+      const res = await signUpWithEmailAndPassWord(data.email, data.password);
+      const currentUser = res.user;
+
+      // Update Firebase profile
+      await updateProfile(currentUser, {
+        displayName: data.name,
+        photoURL: data.photo,
+      });
+
+      // 3. Save user
+      setUser(currentUser);
+
+      alert("Registration Successful!");
+    } catch (err) {
+      console.error("Firebase error:", err);
+      alert(err.message);
+    }
   };
 
   return (
     <div className="bg-[#FEEAC9]">
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-[#FFCDC9] px-6 py-2 my-10 rounded-2xl"
+          className="bg-[#FFCDC9] px-6 py-4 my-10 rounded-2xl"
         >
           <h2 className="text-2xl font-semibold text-gray-700 text-center my-2">
             Register
@@ -34,7 +93,7 @@ const Register = () => {
             <label className="label">Name</label>
             <input
               type="text"
-              placeholder="Enter Full Name"
+              placeholder="Full Name"
               className="input input-bordered"
               {...register("name", { required: "Name is required" })}
             />
@@ -46,9 +105,15 @@ const Register = () => {
             <label className="label">Photo</label>
             <input
               type="file"
-              className="file-input file-input-bordered w-full"
-              {...register("photo")}
+              className="file-input file-input-bordered w-full mb-2"
+              onChange={(e) => uploadPhoto(e.target.files[0])}
             />
+            {uploadedImg && (
+              <div className="mt-2 w-32 h-32">
+                <AdvancedImage cldImg={uploadedImg} />
+              </div>
+            )}
+            <input type="hidden" {...register("photo")} />
 
             {/* EMAIL */}
             <label className="label">Email</label>
@@ -78,8 +143,8 @@ const Register = () => {
                 })}
               />
               <div
-                onClick={() => setShow(!show)}
                 className="absolute top-3 right-3 cursor-pointer"
+                onClick={() => setShow(!show)}
               >
                 {show ? <FiEye /> : <FiEyeOff />}
               </div>
@@ -88,7 +153,7 @@ const Register = () => {
               <p className="text-red-500 text-xs">{errors.password.message}</p>
             )}
 
-            {/* SUBMIT BUTTON */}
+            {/* SUBMIT */}
             <Button className="mt-4 w-full">Register</Button>
 
             <div className="divider">OR</div>
@@ -98,12 +163,11 @@ const Register = () => {
               type="button"
               className="btn w-full text-green-600 bg-secondary hover:bg-primary hover:text-white transition-all"
             >
-              <FcGoogle size={25} /> Login with Google
+              Login with Google
             </button>
 
-            {/* LOGIN LINK */}
             <p className="text-[13px] mt-3 text-center">
-              Already have an Account? Please{" "}
+              Already have an Account?{" "}
               <Link to="/login" className="text-pink-500 underline">
                 Login
               </Link>

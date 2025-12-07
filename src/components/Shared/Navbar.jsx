@@ -4,8 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import Logo from "./Logo";
 import MyContainer from "./MyContainer";
+import useAuth from "../../hooks/UseAuth";
 
 const Navbar = () => {
+  const { user, signOUt } = useAuth();
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const menuRef = useRef(null);
@@ -23,6 +25,10 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handelSignOut = () => {
+    signOUt();
+  };
 
   return (
     <Motion.div
@@ -149,11 +155,37 @@ const Navbar = () => {
 
           {/* RIGHT */}
           <div className="navbar-end">
-            <Motion.div whileHover={{ scale: 1.05 }}>
-              <Link to="/login">
-                <Button className="px-8 py-2 rounded-xl">Login</Button>
-              </Link>
-            </Motion.div>
+            {user ? (
+              <>
+                <div className="dropdown dropdown-end">
+                  <div tabIndex={0} className="avatar avatar-online">
+                    <div className="w-8 sm:w-10 rounded-full border-2 border-primary">
+                      <img
+                        src={
+                          user.photoURL ||
+                          "https://img.icons8.com/?size=100&id=z-JBA_KtSkxG&format=png&color=000000"
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <ul
+                    tabIndex="-1"
+                    className="dropdown-content menu bg-secondary rounded-box z-10 w-25 p-1 mt-2 shadow-sm"
+                  >
+                    <li>
+                      <a onClick={handelSignOut}>Sign Out</a>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <Motion.div whileHover={{ scale: 1.05 }}>
+                <Link to="/login">
+                  <Button className="px-8 py-2 rounded-xl">Login</Button>
+                </Link>
+              </Motion.div>
+            )}
           </div>
         </div>
       </MyContainer>

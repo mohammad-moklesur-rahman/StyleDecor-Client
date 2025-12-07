@@ -150,7 +150,9 @@ const Navbar = () => {
           {/* RIGHT */}
           <div className="navbar-end">
             <Motion.div whileHover={{ scale: 1.05 }}>
-              <Button className="px-8 py-2 rounded-xl">Login</Button>
+              <Link to="/login">
+                <Button className="px-8 py-2 rounded-xl">Login</Button>
+              </Link>
             </Motion.div>
           </div>
         </div>

@@ -139,7 +139,7 @@ const Navbar = () => {
                       {isActive && (
                         <Motion.div
                           layoutId="underline"
-                          className="absolute left-0 right-0 h-[2px] bg-primary mx-auto"
+                          className="absolute left-0 right-0 h-0.5 bg-primary mx-auto"
                           style={{ bottom: -3 }}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}

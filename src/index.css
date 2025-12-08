@@ -15,3 +15,12 @@
   --color-primary: #e38b29;
   --color-secondary: #fcf5ee;
 }
+
+.bgImg {
+  height: 90vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(../src/assets/backgroun-image.jpg);
+  background-size: cover;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+}

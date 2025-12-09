@@ -3,6 +3,8 @@ import RootLayout from "../layout/RootLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import DashboardLayout from "../layout/DashboardLayout";
+import AddService from "../Dashboard/Admin/AddService";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,16 @@ const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    Component: DashboardLayout,
+    children: [
+      {
+        path: "/dashboard/add-service",
+        Component: AddService,
       },
     ],
   },

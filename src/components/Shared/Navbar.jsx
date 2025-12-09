@@ -174,6 +174,9 @@ const Navbar = () => {
                     className="dropdown-content menu bg-secondary rounded-box z-10 w-25 p-1 mt-2 shadow-sm"
                   >
                     <li>
+                      <Link to="/dashboard" >Dashboard</Link>
+                    </li>
+                    <li>
                       <a onClick={handelSignOut}>Sign Out</a>
                     </li>
                   </ul>

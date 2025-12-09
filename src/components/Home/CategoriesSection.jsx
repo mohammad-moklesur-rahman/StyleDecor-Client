@@ -26,7 +26,7 @@ const categories = [
 
 export default function CategoriesSection() {
   return (
-    <div className="py-20 bg-gray-50">
+    <div className="py-20 bg-[#FFDCDC]">
       <MyContainer>
         <div className="px-4">
           <Motion.h2

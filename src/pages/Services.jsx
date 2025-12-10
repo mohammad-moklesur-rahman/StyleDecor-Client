@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import { motion as Motion } from "framer-motion";
 import useAxios from "../hooks/useAxios";
 
@@ -160,9 +160,9 @@ const Services = () => {
                 </p>
 
                 <div className="card-actions justify-end mt-3">
-                  <button className="btn btn-sm btn-primary">
+                  <Link to={`/services/${service._id}`} className="btn btn-sm btn-primary">
                     View Details
-                  </button>
+                  </Link>
                 </div>
               </div>
             </Motion.div>

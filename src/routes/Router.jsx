@@ -6,6 +6,7 @@ import Register from "../pages/Register";
 import DashboardLayout from "../layout/DashboardLayout";
 import AddService from "../Dashboard/Admin/AddService";
 import Services from "../pages/Services";
+import ServiceDetails from "../pages/ServiceDetails";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "services",
         Component: Services,
+      },
+      {
+        path: "services/:id",
+        Component: ServiceDetails,
       },
       {
         path: "about",

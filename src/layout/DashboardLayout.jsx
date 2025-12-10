@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
+import { TbDeviceIpadDollar } from "react-icons/tb";
 
 const DashboardLayout = () => {
   return (
@@ -68,6 +69,19 @@ const DashboardLayout = () => {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
                 <span className="is-drawer-close:hidden">Homepage</span>
+              </Link>
+            </li>
+
+            {/* My Bookings*/}
+            <li>
+              <Link
+                to="/dashboard/my-bookings"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="My Bookings"
+              >
+                {/* add document icon */}
+                <TbDeviceIpadDollar size={20} />
+                <span className="is-drawer-close:hidden">My Bookings</span>
               </Link>
             </li>
 

@@ -7,6 +7,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import AddService from "../Dashboard/Admin/AddService";
 import Services from "../pages/Services";
 import ServiceDetails from "../pages/ServiceDetails";
+import MyBookings from "../Dashboard/User/MyBookings";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/add-service",
         Component: AddService,
+      },
+      {
+        path: "/dashboard/my-bookings",
+        Component: MyBookings,
       },
     ],
   },

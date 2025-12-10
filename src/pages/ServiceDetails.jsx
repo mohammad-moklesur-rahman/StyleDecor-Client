@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 
 import useAxios from "../hooks/useAxios";
 import { useParams } from "react-router";
-import useAuth from "../hooks/UseAuth";
+
 import BookingModal from "../components/Services/ServiceDetails/BookingModal";
+import useAuth from "../hooks/useAuth";
 
 const ServiceDetails = () => {
+  const { user } = useAuth();
   const { id } = useParams();
   const axios = useAxios();
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const { user } = useAuth();
+  
 
   const [openModal, setOpenModal] = useState(false);
 

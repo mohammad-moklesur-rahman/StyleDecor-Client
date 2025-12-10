@@ -1,0 +1,152 @@
+import { useEffect, useState } from "react";
+import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
+
+const MyBookings = () => {
+  const axios = useAxios();
+  const { user } = useAuth();
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load bookings of logged-in user
+  useEffect(() => {
+    if (user?.email) {
+      axios
+        .get(`/bookings?email=${user.email}`)
+        .then((res) => {
+          setBookings(res.data);
+          setLoading(false);
+        });
+    }
+  }, [axios, user]);
+
+  // Cancel Booking
+  const handleCancel = (id) => {
+    // Swal.fire({
+    //   title: "Cancel this booking?",
+    //   text: "This action cannot be undone!",
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonText: "Yes, cancel it!",
+    // }).then(async (result) => {
+    //   if (result.isConfirmed) {
+    //     try {
+    //       await axios.delete(`/bookings/${id}`);
+
+    //       // Remove from UI
+    //       setBookings(bookings.filter((b) => b._id !== id));
+
+    //       Swal.fire("Canceled!", "Your booking has been canceled.", "success");
+    //     } catch {
+    //       Swal.fire("Error!", "Failed to cancel booking.", "error");
+    //     }
+    //   }
+    // });
+  };
+
+  if (loading) return <p className="text-center py-20">Loading bookings...</p>;
+
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-6 text-primary">My Bookings</h2>
+
+      {bookings.length === 0 ? (
+        <p className="text-center text-gray-500 text-lg">No bookings found.</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra w-full">
+            <thead className="bg-base-200 text-base">
+              <tr>
+                <th>#</th>
+                <th>Service</th>
+                <th>Booking Date</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Cancel</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {bookings.map((booking, index) => (
+                <tr key={booking._id}>
+                  <td>{index + 1}</td>
+
+                  {/* Service Info */}
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={booking.service_image}
+                        className="w-16 h-16 rounded-lg object-cover"
+                      />
+                      <div>
+                        <p className="font-bold">{booking.service_name}</p>
+                        <p className="text-sm text-gray-500">
+                          {booking.cost} BDT
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+
+                  {/* Booking Date */}
+                  <td>{booking.booking_date}</td>
+
+                  {/* Location */}
+                  <td>{booking.location}</td>
+
+                  {/* Status */}
+                  <td>
+                    <span
+                      className={`badge ${
+                        booking.status === "Completed"
+                          ? "badge-success"
+                          : booking.status === "Pending"
+                          ? "badge-warning"
+                          : "badge-info"
+                      }`}
+                    >
+                      {booking.status}
+                    </span>
+                  </td>
+
+                  {/* Payment */}
+                  <td>
+                    {booking.paid ? (
+                      <span className="badge badge-success">Paid</span>
+                    ) : (
+                      <Link to={`/payment/${booking._id}`}>
+                        <button className="btn btn-sm btn-primary">
+                          Pay Now
+                        </button>
+                      </Link>
+                    )}
+                  </td>
+
+                  {/* Cancel */}
+                  <td>
+                    {!booking.paid ? (
+                      <button
+                        className="btn btn-sm btn-error"
+                        onClick={() => handleCancel(booking._id)}
+                      >
+                        Cancel
+                      </button>
+                    ) : (
+                      <button className="btn btn-sm btn-disabled">
+                        Locked
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MyBookings;

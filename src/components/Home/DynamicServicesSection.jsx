@@ -14,7 +14,7 @@ const DynamicServicesSection = () => {
   }, [axios]);
 
   return (
-    <div className="py-16 bg-base-100">
+    <div className="py-16 bg-[#D2DCB6]">
       <h2 className="text-3xl font-bold text-center mb-10 text-primary">
         Our Decoration Services
       </h2>

@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import DashboardLayout from "../layout/DashboardLayout";
 import AddService from "../Dashboard/Admin/AddService";
+import Services from "../pages/Services";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "services",
-        Component: Home,
+        Component: Services,
       },
       {
         path: "about",

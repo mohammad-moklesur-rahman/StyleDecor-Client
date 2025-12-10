@@ -1,25 +1,26 @@
+import { Link } from "react-router";
 import { motion as Motion } from "framer-motion";
 import MyContainer from "../Shared/MyContainer";
 
 const categories = [
   {
     id: 1,
-    title: "Birthdays",
+    title: "Birthday",
     image: "https://i.ibb.co.com/yFpF8Qdw/Birthdays.jpg",
   },
   {
     id: 2,
-    title: "Weddings",
+    title: "Wedding",
     image: "https://i.ibb.co.com/dwZht4Gv/Weddings.jpg",
   },
   {
     id: 3,
-    title: "Parties",
+    title: "Party",
     image: "https://i.ibb.co.com/GfgbcBYW/Parties.jpg",
   },
   {
     id: 4,
-    title: "All Celebrations",
+    title: "Celebration",
     image: "https://i.ibb.co.com/8DMf1xYQ/All-Celebrations.jpg",
   },
 ];
@@ -41,26 +42,27 @@ export default function CategoriesSection() {
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((cat, index) => (
-              <Motion.div
-                key={cat.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="card shadow-xl image-full cursor-pointer hover:scale-105 transition-transform"
-              >
-                <figure>
-                  <img
-                    src={cat.image}
-                    alt={cat.title}
-                    className="object-cover w-full h-full"
-                  />
-                </figure>
-                <div className="card-body flex items-center justify-center text-center">
-                  <h2 className="card-title text-white text-2xl font-bold drop-shadow-lg">
-                    {cat.title}
-                  </h2>
-                </div>
-              </Motion.div>
+              <Link key={cat.id} to={`/services?category=${cat.title}`}>
+                <Motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  className="card shadow-xl image-full cursor-pointer hover:scale-105 transition-transform"
+                >
+                  <figure>
+                    <img
+                      src={cat.image}
+                      alt={cat.title}
+                      className="object-cover w-full h-full"
+                    />
+                  </figure>
+                  <div className="card-body flex items-center justify-center text-center">
+                    <h2 className="card-title text-white text-2xl font-bold drop-shadow-lg">
+                      {cat.title}
+                    </h2>
+                  </div>
+                </Motion.div>
+              </Link>
             ))}
           </div>
         </div>

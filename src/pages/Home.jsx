@@ -1,4 +1,5 @@
 import CategoriesSection from "../components/Home/CategoriesSection";
+import DynamicServicesSection from "../components/Home/DynamicServicesSection";
 import HeroSection from "../components/Home/HeroSection";
 
 const Home = () => {
@@ -12,6 +13,11 @@ const Home = () => {
       {/* CategorY Section */}
       <section>
         <CategoriesSection />
+      </section>
+
+      {/* Decoration Services */}
+      <section>
+        <DynamicServicesSection />
       </section>
     </>
   );

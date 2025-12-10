@@ -1,10 +1,12 @@
 import useAxios from "../../../hooks/useAxios";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 const BookingModal = ({ service, user, closeModal }) => {
   const axios = useAxios();
   const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const bookingData = {
@@ -32,6 +34,9 @@ const BookingModal = ({ service, user, closeModal }) => {
       Swal.fire("Success!", "Booking created successfully!", "success");
       reset();
       closeModal();
+
+      // Navigate after success
+      navigate("/dashboard/my-bookings");
     } catch {
       Swal.fire("Error!", "Failed to create booking.", "error");
     }

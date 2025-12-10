@@ -24,26 +24,26 @@ const MyBookings = () => {
 
   // Cancel Booking
   const handleCancel = (id) => {
-    // Swal.fire({
-    //   title: "Cancel this booking?",
-    //   text: "This action cannot be undone!",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonText: "Yes, cancel it!",
-    // }).then(async (result) => {
-    //   if (result.isConfirmed) {
-    //     try {
-    //       await axios.delete(`/bookings/${id}`);
+    Swal.fire({
+      title: "Cancel this booking?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, cancel it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`/bookings/${id}`);
 
-    //       // Remove from UI
-    //       setBookings(bookings.filter((b) => b._id !== id));
+          // Remove from UI
+          setBookings(bookings.filter((b) => b._id !== id));
 
-    //       Swal.fire("Canceled!", "Your booking has been canceled.", "success");
-    //     } catch {
-    //       Swal.fire("Error!", "Failed to cancel booking.", "error");
-    //     }
-    //   }
-    // });
+          Swal.fire("Canceled!", "Your booking has been canceled.", "success");
+        } catch {
+          Swal.fire("Error!", "Failed to cancel booking.", "error");
+        }
+      }
+    });
   };
 
   if (loading) return <p className="text-center py-20">Loading bookings...</p>;

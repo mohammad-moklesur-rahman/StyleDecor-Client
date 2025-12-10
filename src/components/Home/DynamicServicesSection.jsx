@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion as Motion } from "framer-motion";
 import useAxios from "../../hooks/useAxios";
+import { Link } from "react-router";
 
 const DynamicServicesSection = () => {
   const axios = useAxios();
@@ -85,9 +86,12 @@ const DynamicServicesSection = () => {
                 </p>
 
                 <div className="card-actions justify-end mt-3">
-                  <button className="btn btn-sm btn-primary">
+                  <Link
+                    to={`/services/${service._id}`}
+                    className="btn btn-sm btn-primary"
+                  >
                     View Details
-                  </button>
+                  </Link>
                 </div>
               </div>
             </Motion.div>

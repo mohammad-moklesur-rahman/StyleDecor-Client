@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router";
 import Swal from "sweetalert2";
 
 const MyBookings = () => {
@@ -13,14 +12,26 @@ const MyBookings = () => {
   // Load bookings of logged-in user
   useEffect(() => {
     if (user?.email) {
-      axios
-        .get(`/bookings?email=${user.email}`)
-        .then((res) => {
-          setBookings(res.data);
-          setLoading(false);
-        });
+      axios.get(`/bookings?email=${user.email}`).then((res) => {
+        setBookings(res.data);
+        setLoading(false);
+      });
     }
   }, [axios, user]);
+
+  // Stripe Payment
+  const handlePayment = async (id) => {
+    try {
+      const { data } = await axios.post("/stripe/create-checkout-session", {
+        bookingId: id,
+        userId: user._id,
+      });
+      window.location.href = data.url;
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error!", "Payment could not be initiated.", "error");
+    }
+  };
 
   // Cancel Booking
   const handleCancel = (id) => {
@@ -116,11 +127,12 @@ const MyBookings = () => {
                     {booking.paid ? (
                       <span className="badge badge-success">Paid</span>
                     ) : (
-                      <Link to={`/payment/${booking._id}`}>
-                        <button className="btn btn-sm btn-primary">
-                          Pay Now
-                        </button>
-                      </Link>
+                      <button
+                        onClick={() => handlePayment(booking._id)}
+                        className="btn btn-sm btn-primary"
+                      >
+                        Pay Now
+                      </button>
                     )}
                   </td>
 

@@ -9,6 +9,7 @@ import Services from "../pages/Services";
 import ServiceDetails from "../pages/ServiceDetails";
 import MyBookings from "../Dashboard/User/MyBookings";
 import PaymentSuccess from "../Dashboard/User/PaymentSuccess";
+import PaymentHistory from "../Dashboard/User/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/payment-success",
         Component: PaymentSuccess,
+      },
+      {
+        path: "/dashboard/payment-history",
+        Component: PaymentHistory,
       },
     ],
   },

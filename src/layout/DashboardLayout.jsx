@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { TbDeviceIpadDollar } from "react-icons/tb";
+import { FaHistory } from "react-icons/fa";
 
 const DashboardLayout = () => {
   return (
@@ -82,6 +83,19 @@ const DashboardLayout = () => {
                 {/* add document icon */}
                 <TbDeviceIpadDollar size={20} />
                 <span className="is-drawer-close:hidden">My Bookings</span>
+              </Link>
+            </li>
+
+            {/* My Payment History*/}
+            <li>
+              <Link
+                to="/dashboard/payment-history"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="Payment History"
+              >
+                {/* add document icon */}
+                <FaHistory size={20} />
+                <span className="is-drawer-close:hidden">Payment History</span>
               </Link>
             </li>
 

@@ -25,6 +25,7 @@ const MyBookings = () => {
       const { data } = await axios.post("/stripe/create-checkout-session", {
         bookingId: id,
         userId: user._id,
+        userEmail: user.email,
       });
       window.location.href = data.url;
     } catch (err) {

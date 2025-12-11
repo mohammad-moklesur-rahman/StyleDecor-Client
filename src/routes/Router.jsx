@@ -8,6 +8,7 @@ import AddService from "../Dashboard/Admin/AddService";
 import Services from "../pages/Services";
 import ServiceDetails from "../pages/ServiceDetails";
 import MyBookings from "../Dashboard/User/MyBookings";
+import PaymentSuccess from "../Dashboard/User/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-bookings",
         Component: MyBookings,
+      },
+      {
+        path: "/dashboard/payment-success",
+        Component: PaymentSuccess,
       },
     ],
   },

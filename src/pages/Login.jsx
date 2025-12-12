@@ -7,7 +7,7 @@ import Button from "../components/Shared/Button";
 import useAuth from "../hooks/UseAuth";
 
 const Login = () => {
-  const { loginWithEmailAndPassword } = useAuth();
+  const { loginWithEmailAndPassword, signInWithGoogle } = useAuth();
   const [show, setShow] = useState(true);
 
   const {
@@ -16,8 +16,14 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  // * Login With Email and Password
   const onSubmit = (data) => {
-    loginWithEmailAndPassword(data.email, data.password)
+    loginWithEmailAndPassword(data.email, data.password);
+  };
+
+  // * Login With Google
+  const handelGoogleLogin = () => {
+    signInWithGoogle();
   };
 
   return (
@@ -77,6 +83,7 @@ const Login = () => {
 
             {/* GOOGLE LOGIN */}
             <button
+              onClick={handelGoogleLogin}
               type="button"
               className="btn w-full text-green-600 bg-secondary hover:bg-primary hover:text-white transition-all"
             >

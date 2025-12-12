@@ -12,6 +12,7 @@ import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
 import axios from "axios";
 import useAuth from "../hooks/UseAuth";
 import { updateProfile } from "firebase/auth";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
   const {
@@ -22,7 +23,7 @@ const Register = () => {
   } = useForm();
   const [show, setShow] = useState(true);
   const [imagePublicId, setImagePublicId] = useState("");
-  const { signUpWithEmailAndPassWord, setUser } = useAuth();
+  const { signUpWithEmailAndPassWord, setUser, signInWithGoogle } = useAuth();
 
   const cloudName = `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}`; // Cloudinary cloud name
   const uploadPreset = `${import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET}`; // Cloudinary unsigned preset
@@ -75,6 +76,11 @@ const Register = () => {
       console.error("Firebase error:", err);
       alert(err.message);
     }
+  };
+
+  // * Login With Google
+  const handelGoogleLogin = () => {
+    signInWithGoogle();
   };
 
   return (
@@ -160,10 +166,11 @@ const Register = () => {
 
             {/* GOOGLE LOGIN */}
             <button
+              onClick={handelGoogleLogin}
               type="button"
               className="btn w-full text-green-600 bg-secondary hover:bg-primary hover:text-white transition-all"
             >
-              Login with Google
+              <FcGoogle size={25} /> Login with Google
             </button>
 
             <p className="text-[13px] mt-3 text-center">

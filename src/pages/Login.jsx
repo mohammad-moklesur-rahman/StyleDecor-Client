@@ -5,9 +5,11 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import Button from "../components/Shared/Button";
 import useAuth from "../hooks/UseAuth";
+import { useSaveOrUpdateUser } from "../utils/UserDataFunc";
 
 const Login = () => {
   const { loginWithEmailAndPassword, signInWithGoogle } = useAuth();
+  const saveOrUpdateUser = useSaveOrUpdateUser();
   const [show, setShow] = useState(true);
 
   const {
@@ -17,13 +19,27 @@ const Login = () => {
   } = useForm();
 
   // * Login With Email and Password
-  const onSubmit = (data) => {
-    loginWithEmailAndPassword(data.email, data.password);
+  const onSubmit = async (data) => {
+    const { user } = await loginWithEmailAndPassword(data.email, data.password);
+
+    // save or update user in DB
+    await saveOrUpdateUser({
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    });
   };
 
   // * Login With Google
-  const handelGoogleLogin = () => {
-    signInWithGoogle();
+  const handelGoogleLogin = async () => {
+    const { user } = await signInWithGoogle();
+
+    // save or update user in DB
+    await saveOrUpdateUser({
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    });
   };
 
   return (

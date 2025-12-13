@@ -13,6 +13,7 @@ import axios from "axios";
 import useAuth from "../hooks/UseAuth";
 import { updateProfile } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
+import { useSaveOrUpdateUser } from "../utils/UserDataFunc";
 
 const Register = () => {
   const {
@@ -24,6 +25,7 @@ const Register = () => {
   const [show, setShow] = useState(true);
   const [imagePublicId, setImagePublicId] = useState("");
   const { signUpWithEmailAndPassWord, setUser, signInWithGoogle } = useAuth();
+  const saveOrUpdateUser = useSaveOrUpdateUser();
 
   const cloudName = `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}`; // Cloudinary cloud name
   const uploadPreset = `${import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET}`; // Cloudinary unsigned preset
@@ -60,6 +62,14 @@ const Register = () => {
     try {
       // Create Firebase user
       const res = await signUpWithEmailAndPassWord(data.email, data.password);
+
+      // save or update user in DB
+      await saveOrUpdateUser({
+        name: data.name,
+        email: data.email,
+        photo: data.photo,
+      });
+
       const currentUser = res.user;
 
       // Update Firebase profile
@@ -79,8 +89,15 @@ const Register = () => {
   };
 
   // * Login With Google
-  const handelGoogleLogin = () => {
-    signInWithGoogle();
+  const handelGoogleLogin = async () => {
+    const { user } = await signInWithGoogle();
+
+    // save or update user in DB
+    await saveOrUpdateUser({
+      name: user?.displayName,
+      email: user?.email,
+      photo: user?.photoURL,
+    });
   };
 
   return (

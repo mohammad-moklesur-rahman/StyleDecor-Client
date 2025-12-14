@@ -4,7 +4,7 @@ import { useMemo } from "react";
 const useAxios = () => {
   const instance = useMemo(() => {
     return axios.create({
-      baseURL: "http://localhost:5000/api",
+      baseURL: import.meta.env.VITE_API_URL,
     });
   }, []);
 

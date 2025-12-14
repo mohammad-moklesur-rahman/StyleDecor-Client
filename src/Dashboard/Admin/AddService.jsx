@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/UseAuth";
 import { UploadImageToImgbb } from "../../utils/imgbb/UploadImageToImgbb";
-import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AddService = () => {
   const { user } = useAuth();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -41,7 +41,7 @@ const AddService = () => {
           };
 
           // POST to backend
-          await axios.post("/services", finalData);
+          await axiosSecure.post("/services", finalData);
 
           Swal.fire("Success!", "Service added successfully!", "success");
           reset();

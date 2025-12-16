@@ -6,7 +6,7 @@ const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios.get("/bookings").then((res) => {
+    axios.get("/bookings/get-admin").then((res) => {
       setBookings(res.data);
     });
   }, [axios]);

@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { TbDeviceIpadDollar } from "react-icons/tb";
 import { FaHistory } from "react-icons/fa";
-import { MdManageHistory } from "react-icons/md";
+import { MdManageAccounts, MdManageHistory } from "react-icons/md";
 
 const DashboardLayout = () => {
   return (
@@ -97,6 +97,19 @@ const DashboardLayout = () => {
                 {/* add document icon */}
                 <FaHistory size={20} />
                 <span className="is-drawer-close:hidden">Payment History</span>
+              </Link>
+            </li>
+
+            {/* Manage Users*/}
+            <li>
+              <Link
+                to="/dashboard/manage-users"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="Manage Users"
+              >
+                {/* add Manage icon */}
+                <MdManageAccounts size={20} />
+                <span className="is-drawer-close:hidden">Manage Users</span>
               </Link>
             </li>
 

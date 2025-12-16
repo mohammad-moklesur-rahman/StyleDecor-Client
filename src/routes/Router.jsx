@@ -11,6 +11,7 @@ import MyBookings from "../Dashboard/User/MyBookings";
 import PaymentSuccess from "../Dashboard/User/PaymentSuccess";
 import PaymentHistory from "../Dashboard/User/PaymentHistory";
 import ManageBookings from "../Dashboard/Admin/ManageBookings";
+import ManageUsers from "../Dashboard/Admin/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-bookings",
         Component: MyBookings,
+      },
+      {
+        path: "/dashboard/manage-users",
+        Component: ManageUsers,
       },
       {
         path: "/dashboard/manage-bookings",

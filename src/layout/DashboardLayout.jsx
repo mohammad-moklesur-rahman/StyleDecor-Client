@@ -2,7 +2,11 @@ import { Link, Outlet } from "react-router";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { TbDeviceIpadDollar } from "react-icons/tb";
 import { FaHistory } from "react-icons/fa";
-import { MdManageAccounts, MdManageHistory } from "react-icons/md";
+import {
+  MdAssignmentInd,
+  MdManageAccounts,
+  MdManageHistory,
+} from "react-icons/md";
 
 const DashboardLayout = () => {
   return (
@@ -110,6 +114,19 @@ const DashboardLayout = () => {
                 {/* add Manage icon */}
                 <MdManageAccounts size={20} />
                 <span className="is-drawer-close:hidden">Manage Users</span>
+              </Link>
+            </li>
+
+            {/* Assign Decorator*/}
+            <li>
+              <Link
+                to="/dashboard/assign-decorator"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="Assign Decorator"
+              >
+                {/* add Assign icon */}
+                <MdAssignmentInd size={20} />
+                <span className="is-drawer-close:hidden">Assign Decorator</span>
               </Link>
             </li>
 

@@ -12,6 +12,7 @@ import PaymentSuccess from "../Dashboard/User/PaymentSuccess";
 import PaymentHistory from "../Dashboard/User/PaymentHistory";
 import ManageBookings from "../Dashboard/Admin/ManageBookings";
 import ManageUsers from "../Dashboard/Admin/ManageUsers";
+import AssignDecorator from "../Dashboard/Admin/AssignDecorator";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/manage-bookings",
         Component: ManageBookings,
+      },
+      {
+        path: "/dashboard/assign-decorator",
+        Component: AssignDecorator,
       },
       {
         path: "/dashboard/payment-success",

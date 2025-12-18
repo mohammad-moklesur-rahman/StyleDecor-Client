@@ -13,6 +13,7 @@ import PaymentHistory from "../Dashboard/User/PaymentHistory";
 import ManageBookings from "../Dashboard/Admin/ManageBookings";
 import ManageUsers from "../Dashboard/Admin/ManageUsers";
 import AssignDecorator from "../Dashboard/Admin/AssignDecorator";
+import ManageDecorators from "../Dashboard/Admin/ManageDecorators";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/manage-users",
         Component: ManageUsers,
+      },
+      {
+        path: "/dashboard/manage-decorators",
+        Component: ManageDecorators,
       },
       {
         path: "/dashboard/manage-bookings",

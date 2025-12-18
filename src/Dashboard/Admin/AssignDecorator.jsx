@@ -17,7 +17,7 @@ const AssignDecorator = () => {
 
   // Load available decorators
   useEffect(() => {
-    axios.get("/decorators").then((res) => setDecorators(res.data));
+    axios.get("/decorators/available").then((res) => setDecorators(res.data));
   }, [axios]);
 
   const handleAssign = async (bookingId) => {

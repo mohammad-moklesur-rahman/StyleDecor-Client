@@ -6,6 +6,7 @@ import {
   MdAssignmentInd,
   MdManageAccounts,
   MdManageHistory,
+  MdOutlineManageAccounts,
 } from "react-icons/md";
 
 const DashboardLayout = () => {
@@ -114,6 +115,21 @@ const DashboardLayout = () => {
                 {/* add Manage icon */}
                 <MdManageAccounts size={20} />
                 <span className="is-drawer-close:hidden">Manage Users</span>
+              </Link>
+            </li>
+
+            {/* Manage Decorators*/}
+            <li>
+              <Link
+                to="/dashboard/manage-decorators"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="Manage Decorators"
+              >
+                {/* add Manage icon */}
+                <MdOutlineManageAccounts size={20} />
+                <span className="is-drawer-close:hidden">
+                  Manage Decorators
+                </span>
               </Link>
             </li>
 

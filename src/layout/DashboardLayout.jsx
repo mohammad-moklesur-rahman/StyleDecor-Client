@@ -9,7 +9,7 @@ import {
   MdOutlineManageAccounts,
 } from "react-icons/md";
 import { GoProjectSymlink } from "react-icons/go";
-import { GrSchedules } from "react-icons/gr";
+import { GrDocumentUpdate, GrSchedules } from "react-icons/gr";
 
 const DashboardLayout = () => {
   return (
@@ -199,6 +199,21 @@ const DashboardLayout = () => {
                 {/* add Project icon */}
                 <GrSchedules size={20} />
                 <span className="is-drawer-close:hidden">Today Schedule</span>
+              </Link>
+            </li>
+
+            {/* Update Project Status */}
+            <li>
+              <Link
+                to="/dashboard/update-status"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="Update Project Status"
+              >
+                {/* add update icon */}
+                <GrDocumentUpdate size={20} />
+                <span className="is-drawer-close:hidden">
+                  Update Project Status
+                </span>
               </Link>
             </li>
           </ul>

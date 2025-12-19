@@ -16,6 +16,7 @@ import AssignDecorator from "../Dashboard/Admin/AssignDecorator";
 import ManageDecorators from "../Dashboard/Admin/ManageDecorators";
 import MyAssignedProjects from "../Dashboard/Decorator/MyAssignedProjects";
 import TodaySchedule from "../Dashboard/Decorator/TodaySchedule";
+import UpdateProjectStatus from "../Dashboard/Decorator/UpdateProjectStatus";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/today-schedule",
         Component: TodaySchedule,
+      },
+      {
+        path: "/dashboard/update-status",
+        Component: UpdateProjectStatus,
       },
       {
         path: "/dashboard/payment-success",

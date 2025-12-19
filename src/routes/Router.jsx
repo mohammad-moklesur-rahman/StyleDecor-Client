@@ -15,6 +15,7 @@ import ManageUsers from "../Dashboard/Admin/ManageUsers";
 import AssignDecorator from "../Dashboard/Admin/AssignDecorator";
 import ManageDecorators from "../Dashboard/Admin/ManageDecorators";
 import MyAssignedProjects from "../Dashboard/Decorator/MyAssignedProjects";
+import TodaySchedule from "../Dashboard/Decorator/TodaySchedule";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-projects",
         Component: MyAssignedProjects,
+      },
+      {
+        path: "/dashboard/today-schedule",
+        Component: TodaySchedule,
       },
       {
         path: "/dashboard/payment-success",

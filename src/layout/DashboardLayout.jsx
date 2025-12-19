@@ -8,6 +8,8 @@ import {
   MdManageHistory,
   MdOutlineManageAccounts,
 } from "react-icons/md";
+import { GoProjectSymlink } from "react-icons/go";
+import { GrSchedules } from "react-icons/gr";
 
 const DashboardLayout = () => {
   return (
@@ -169,6 +171,34 @@ const DashboardLayout = () => {
                 {/* add document icon */}
                 <HiOutlineDocumentAdd size={20} />
                 <span className="is-drawer-close:hidden">Add Service</span>
+              </Link>
+            </li>
+
+            {/* My Assigned Projects */}
+            <li>
+              <Link
+                to="/dashboard/my-projects"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="My Assigned Projects"
+              >
+                {/* add Project icon */}
+                <GoProjectSymlink size={20} />
+                <span className="is-drawer-close:hidden">
+                  My Assigned Projects
+                </span>
+              </Link>
+            </li>
+
+            {/* Today Schedule */}
+            <li>
+              <Link
+                to="/dashboard/today-schedule"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="Today Schedule"
+              >
+                {/* add Project icon */}
+                <GrSchedules size={20} />
+                <span className="is-drawer-close:hidden">Today Schedule</span>
               </Link>
             </li>
           </ul>

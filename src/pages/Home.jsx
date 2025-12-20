@@ -2,6 +2,7 @@ import CategoriesSection from "../components/Home/CategoriesSection";
 import DynamicServicesSection from "../components/Home/DynamicServicesSection";
 import HeroSection from "../components/Home/HeroSection";
 import ServiceCoverageMap from "../components/Home/ServiceCoverageMap";
+import TopDecorators from "../components/Home/TopDecorators";
 
 const Home = () => {
   return (
@@ -19,6 +20,11 @@ const Home = () => {
       {/* Decoration Services */}
       <section>
         <DynamicServicesSection />
+      </section>
+
+      {/* Top Decorators Section */}
+      <section>
+        <TopDecorators />
       </section>
 
       {/* Service Coverage Map Section */}

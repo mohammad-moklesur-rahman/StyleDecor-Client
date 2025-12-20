@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyBookings = () => {
   const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,7 +47,7 @@ const MyBookings = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`/bookings/${id}`);
+          await axiosSecure.delete(`/bookings/${id}`);
 
           // Remove from UI
           setBookings(bookings.filter((b) => b._id !== id));

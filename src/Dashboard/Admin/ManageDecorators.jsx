@@ -9,7 +9,7 @@ const ManageDecorators = () => {
     axios.get("/decorators").then((res) => {
       setDecorators(res.data);
     });
-  }, []);
+  }, [axios]);
 
   const approve = async (id) => {
     await axios.patch(`/decorators/approve/${id}`);

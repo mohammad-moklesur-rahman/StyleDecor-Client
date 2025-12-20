@@ -10,8 +10,10 @@ import {
 } from "react-icons/md";
 import { GoProjectSymlink } from "react-icons/go";
 import { GrDocumentUpdate, GrSchedules } from "react-icons/gr";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -81,141 +83,159 @@ const DashboardLayout = () => {
               </Link>
             </li>
 
-            {/* My Bookings*/}
-            <li>
-              <Link
-                to="/dashboard/my-bookings"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="My Bookings"
-              >
-                {/* add document icon */}
-                <TbDeviceIpadDollar size={20} />
-                <span className="is-drawer-close:hidden">My Bookings</span>
-              </Link>
-            </li>
+            {role === "user" && (
+              <>
+                {/* My Bookings*/}
+                <li>
+                  <Link
+                    to="/dashboard/my-bookings"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="My Bookings"
+                  >
+                    {/* add document icon */}
+                    <TbDeviceIpadDollar size={20} />
+                    <span className="is-drawer-close:hidden">My Bookings</span>
+                  </Link>
+                </li>
 
-            {/* My Payment History*/}
-            <li>
-              <Link
-                to="/dashboard/payment-history"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Payment History"
-              >
-                {/* add document icon */}
-                <FaHistory size={20} />
-                <span className="is-drawer-close:hidden">Payment History</span>
-              </Link>
-            </li>
+                {/* My Payment History*/}
+                <li>
+                  <Link
+                    to="/dashboard/payment-history"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Payment History"
+                  >
+                    {/* add document icon */}
+                    <FaHistory size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Payment History
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
+            {role === "decorator" && (
+              <>
+                {/* My Assigned Projects */}
+                <li>
+                  <Link
+                    to="/dashboard/my-projects"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="My Assigned Projects"
+                  >
+                    {/* add Project icon */}
+                    <GoProjectSymlink size={20} />
+                    <span className="is-drawer-close:hidden">
+                      My Assigned Projects
+                    </span>
+                  </Link>
+                </li>
 
-            {/* Manage Users*/}
-            <li>
-              <Link
-                to="/dashboard/manage-users"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Manage Users"
-              >
-                {/* add Manage icon */}
-                <MdManageAccounts size={20} />
-                <span className="is-drawer-close:hidden">Manage Users</span>
-              </Link>
-            </li>
+                {/* Today Schedule */}
+                <li>
+                  <Link
+                    to="/dashboard/today-schedule"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Today Schedule"
+                  >
+                    {/* add Project icon */}
+                    <GrSchedules size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Today Schedule
+                    </span>
+                  </Link>
+                </li>
 
-            {/* Manage Decorators*/}
-            <li>
-              <Link
-                to="/dashboard/manage-decorators"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Manage Decorators"
-              >
-                {/* add Manage icon */}
-                <MdOutlineManageAccounts size={20} />
-                <span className="is-drawer-close:hidden">
-                  Manage Decorators
-                </span>
-              </Link>
-            </li>
+                {/* Update Project Status */}
+                <li>
+                  <Link
+                    to="/dashboard/update-status"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Update Project Status"
+                  >
+                    {/* add update icon */}
+                    <GrDocumentUpdate size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Update Project Status
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
+            {role === "admin" && (
+              <>
+                {/* Manage Users*/}
+                <li>
+                  <Link
+                    to="/dashboard/manage-users"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Manage Users"
+                  >
+                    {/* add Manage icon */}
+                    <MdManageAccounts size={20} />
+                    <span className="is-drawer-close:hidden">Manage Users</span>
+                  </Link>
+                </li>
 
-            {/* Assign Decorator*/}
-            <li>
-              <Link
-                to="/dashboard/assign-decorator"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Assign Decorator"
-              >
-                {/* add Assign icon */}
-                <MdAssignmentInd size={20} />
-                <span className="is-drawer-close:hidden">Assign Decorator</span>
-              </Link>
-            </li>
+                {/* Manage Decorators*/}
+                <li>
+                  <Link
+                    to="/dashboard/manage-decorators"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Manage Decorators"
+                  >
+                    {/* add Manage icon */}
+                    <MdOutlineManageAccounts size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Manage Decorators
+                    </span>
+                  </Link>
+                </li>
 
-            {/* Manage Bookings*/}
-            <li>
-              <Link
-                to="/dashboard/manage-bookings"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Manage Bookings"
-              >
-                {/* add Manage icon */}
-                <MdManageHistory size={20} />
-                <span className="is-drawer-close:hidden">Manage Bookings</span>
-              </Link>
-            </li>
+                {/* Assign Decorator*/}
+                <li>
+                  <Link
+                    to="/dashboard/assign-decorator"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Assign Decorator"
+                  >
+                    {/* add Assign icon */}
+                    <MdAssignmentInd size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Assign Decorator
+                    </span>
+                  </Link>
+                </li>
 
-            {/* Add service*/}
-            <li>
-              <Link
-                to="/dashboard/add-service"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Add Service"
-              >
-                {/* add document icon */}
-                <HiOutlineDocumentAdd size={20} />
-                <span className="is-drawer-close:hidden">Add Service</span>
-              </Link>
-            </li>
+                {/* Manage Bookings*/}
+                <li>
+                  <Link
+                    to="/dashboard/manage-bookings"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Manage Bookings"
+                  >
+                    {/* add Manage icon */}
+                    <MdManageHistory size={20} />
+                    <span className="is-drawer-close:hidden">
+                      Manage Bookings
+                    </span>
+                  </Link>
+                </li>
 
-            {/* My Assigned Projects */}
-            <li>
-              <Link
-                to="/dashboard/my-projects"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="My Assigned Projects"
-              >
-                {/* add Project icon */}
-                <GoProjectSymlink size={20} />
-                <span className="is-drawer-close:hidden">
-                  My Assigned Projects
-                </span>
-              </Link>
-            </li>
-
-            {/* Today Schedule */}
-            <li>
-              <Link
-                to="/dashboard/today-schedule"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Today Schedule"
-              >
-                {/* add Project icon */}
-                <GrSchedules size={20} />
-                <span className="is-drawer-close:hidden">Today Schedule</span>
-              </Link>
-            </li>
-
-            {/* Update Project Status */}
-            <li>
-              <Link
-                to="/dashboard/update-status"
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                data-tip="Update Project Status"
-              >
-                {/* add update icon */}
-                <GrDocumentUpdate size={20} />
-                <span className="is-drawer-close:hidden">
-                  Update Project Status
-                </span>
-              </Link>
-            </li>
+                {/* Add service*/}
+                <li>
+                  <Link
+                    to="/dashboard/add-service"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Add Service"
+                  >
+                    {/* add document icon */}
+                    <HiOutlineDocumentAdd size={20} />
+                    <span className="is-drawer-close:hidden">Add Service</span>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

@@ -18,6 +18,7 @@ import MyAssignedProjects from "../Dashboard/Decorator/MyAssignedProjects";
 import TodaySchedule from "../Dashboard/Decorator/TodaySchedule";
 import UpdateProjectStatus from "../Dashboard/Decorator/UpdateProjectStatus";
 import MyProfile from "../Dashboard/MyProfile";
+import DashboardHome from "../Dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     Component: DashboardLayout,
     children: [
+      {
+        index: true,
+        Component: DashboardHome,
+      },
       {
         path: "/dashboard/my-profile",
         Component: MyProfile,

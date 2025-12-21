@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AssignDecorator = () => {
   const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [bookings, setBookings] = useState([]);
   const [decorators, setDecorators] = useState([]);
   const [selectedDecorator, setSelectedDecorator] = useState({});
@@ -28,7 +30,7 @@ const AssignDecorator = () => {
 
     try {
       setLoading(true);
-      await axios.patch("/decorators/assign-decorator", {
+      await axiosSecure.patch("/decorators/assign-decorator", {
         bookingId,
         decoratorId: selectedDecorator[bookingId],
       });

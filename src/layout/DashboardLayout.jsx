@@ -10,6 +10,7 @@ import {
 } from "react-icons/md";
 import { GoProjectSymlink } from "react-icons/go";
 import { GrDocumentUpdate, GrSchedules } from "react-icons/gr";
+import { CgProfile } from "react-icons/cg";
 import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
@@ -80,6 +81,19 @@ const DashboardLayout = () => {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
                 <span className="is-drawer-close:hidden">Homepage</span>
+              </Link>
+            </li>
+
+            {/* My Profile */}
+            <li>
+              <Link
+                to="/dashboard/my-profile"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                data-tip="My Profile"
+              >
+                {/* add profile icon */}
+                <CgProfile size={20} />
+                <span className="is-drawer-close:hidden">My Profile</span>
               </Link>
             </li>
 

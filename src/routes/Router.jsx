@@ -17,6 +17,7 @@ import ManageDecorators from "../Dashboard/Admin/ManageDecorators";
 import MyAssignedProjects from "../Dashboard/Decorator/MyAssignedProjects";
 import TodaySchedule from "../Dashboard/Decorator/TodaySchedule";
 import UpdateProjectStatus from "../Dashboard/Decorator/UpdateProjectStatus";
+import MyProfile from "../Dashboard/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     Component: DashboardLayout,
     children: [
+      {
+        path: "/dashboard/my-profile",
+        Component: MyProfile,
+      },
       {
         path: "/dashboard/add-service",
         Component: AddService,

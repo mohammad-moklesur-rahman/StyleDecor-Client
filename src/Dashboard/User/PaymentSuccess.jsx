@@ -1,22 +1,22 @@
 import { useEffect, useRef } from "react";
-import useAxios from "../../hooks/useAxios";
 import { useSearchParams } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PaymentSuccess = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [params] = useSearchParams();
   const session_id = params.get("session_id");
 
-   const calledRef = useRef(false); //prevent multiple calls
+  const calledRef = useRef(false); //prevent multiple calls
 
   // When page loads → save payment in database
   useEffect(() => {
     if (session_id && !calledRef.current) {
       calledRef.current = true;
 
-      axios.get(`/stripe/payment-info?session_id=${session_id}`);
+      axiosSecure.get(`/stripe/payment-info?session_id=${session_id}`);
     }
-  }, [session_id, axios]);
+  }, [session_id, axiosSecure]);
 
   return (
     <div className="text-center py-20">

@@ -10,7 +10,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content">
+    <footer className="bg-primary-content text-base-content">
       {/* Main Content */}
       <div className="footer footer-center p-10 max-w-7xl mx-auto">
         {/* Contact Info */}
@@ -56,7 +56,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="footer footer-center p-4 bg-base-300">
+      <div className="footer footer-center p-4 bg-secondary">
         <p>© {new Date().getFullYear()} StyleDecor. All rights reserved.</p>
       </div>
     </footer>

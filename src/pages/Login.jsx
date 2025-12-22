@@ -1,16 +1,28 @@
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Shared/Button";
 import useAuth from "../hooks/UseAuth";
 import { useSaveOrUpdateUser } from "../utils/UserDataFunc";
+import AuthLoading from "../components/Shared/AuthLoading";
 
 const Login = () => {
-  const { loginWithEmailAndPassword, signInWithGoogle } = useAuth();
+  const { loginWithEmailAndPassword, signInWithGoogle, user, authLoading } =
+    useAuth();
   const saveOrUpdateUser = useSaveOrUpdateUser();
   const [show, setShow] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  // * navigate previous path
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, from, navigate]);
 
   const {
     register,
@@ -41,6 +53,8 @@ const Login = () => {
       photo: user?.photoURL,
     });
   };
+
+  if (authLoading) return <AuthLoading />;
 
   return (
     <div className="bg-[#FEEAC9]">

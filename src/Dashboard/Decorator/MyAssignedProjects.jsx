@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyAssignedProjects = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    axios.get("/decorators/my-projects").then((res) => setProjects(res.data));
-  }, [axios]);
+    axiosSecure
+      .get("/decorators/my-projects")
+      .then((res) => setProjects(res.data));
+  }, [axiosSecure]);
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">My Assigned Projects</h1>
+      <h2 className="text-2xl font-bold mb-6">My Assigned Projects</h2>
 
       <table className="w-full border">
         <thead className="bg-gray-100">

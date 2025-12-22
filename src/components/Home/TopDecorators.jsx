@@ -13,10 +13,10 @@ const TopDecorators = () => {
   }, [axios]);
 
   return (
-    <section className="py-16 bg-base-200">
+    <section className="py-16 bg-secondary-content">
       <div className="max-w-7xl mx-auto px-4 text-center">
         {/* Section Title */}
-        <h2 className="text-3xl font-bold mb-4">Top Decorators</h2>
+        <h2 className="text-4xl font-bold text-center mb-4">Top Decorators</h2>
         <p className="text-base-content/70 mb-10">
           Meet our most trusted and highly rated decorators
         </p>

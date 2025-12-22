@@ -7,7 +7,7 @@ import MyContainer from "./MyContainer";
 import useAuth from "../../hooks/UseAuth";
 
 const Navbar = () => {
-  const { user, signOUt } = useAuth();
+  const { user, signOUt, authLoading } = useAuth();
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const menuRef = useRef(null);
@@ -155,7 +155,12 @@ const Navbar = () => {
 
           {/* RIGHT */}
           <div className="navbar-end">
-            {user ? (
+            {authLoading ? (
+              // Only button area loading spinner
+              <div className="w-24 h-10 flex items-center justify-end">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
+              </div>
+            ) : user ? (
               <>
                 <div className="dropdown dropdown-end">
                   <div tabIndex={0} className="avatar avatar-online">
@@ -174,7 +179,7 @@ const Navbar = () => {
                     className="dropdown-content menu bg-secondary rounded-box z-10 w-25 p-1 mt-2 shadow-sm"
                   >
                     <li>
-                      <Link to="/dashboard" >Dashboard</Link>
+                      <Link to="/dashboard">Dashboard</Link>
                     </li>
                     <li>
                       <a onClick={handelSignOut}>Sign Out</a>

@@ -15,7 +15,6 @@ const EarningsSummary = () => {
         .then((res) => setData(res.data));
     }
   }, [axiosSecure, user]);
-  console.log(data)
 
   if (!data) return <p>Loading...</p>;
 

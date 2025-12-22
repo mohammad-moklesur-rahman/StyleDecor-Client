@@ -6,6 +6,13 @@ const DashboardHome = () => {
   const { role } = useRole();
   return (
     <>
+      {/* for User */}
+      {role === "user" && (
+        <>
+          <h2 className="text-2xl text-green-500">Welcome!</h2>
+        </>
+      )}
+
       {/* for Decorator */}
       {role === "decorator" && (
         <>

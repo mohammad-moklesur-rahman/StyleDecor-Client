@@ -19,6 +19,9 @@ import TodaySchedule from "../Dashboard/Decorator/TodaySchedule";
 import UpdateProjectStatus from "../Dashboard/Decorator/UpdateProjectStatus";
 import MyProfile from "../Dashboard/MyProfile";
 import DashboardHome from "../Dashboard/DashboardHome";
+import PrivateRoute from "./PrivateRoute";
+import DecoratorRoute from "./DecoratorRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -65,55 +68,124 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: DashboardHome,
+        element: (
+          <PrivateRoute>
+            <DashboardHome />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/my-profile",
-        Component: MyProfile,
+        element: (
+          <PrivateRoute>
+            <MyProfile />
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/my-bookings",
+        element: (
+          <PrivateRoute>
+            <MyBookings />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/add-service",
-        Component: AddService,
-      },
-      {
-        path: "/dashboard/my-bookings",
-        Component: MyBookings,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AddService />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/manage-users",
-        Component: ManageUsers,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/manage-decorators",
-        Component: ManageDecorators,
-      },
-      {
-        path: "/dashboard/manage-bookings",
-        Component: ManageBookings,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageDecorators />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/assign-decorator",
-        Component: AssignDecorator,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AssignDecorator />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-bookings",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageBookings />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/my-projects",
-        Component: MyAssignedProjects,
+        element: (
+          <PrivateRoute>
+            <DecoratorRoute>
+              <MyAssignedProjects />
+            </DecoratorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/today-schedule",
-        Component: TodaySchedule,
+        element: (
+          <PrivateRoute>
+            <DecoratorRoute>
+              <TodaySchedule />
+            </DecoratorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/update-status",
-        Component: UpdateProjectStatus,
+        element: (
+          <PrivateRoute>
+            <DecoratorRoute>
+              <UpdateProjectStatus />
+            </DecoratorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/payment-success",
-        Component: PaymentSuccess,
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/payment-history",
-        Component: PaymentHistory,
+        element: (
+          <PrivateRoute>
+            <PaymentHistory />
+          </PrivateRoute>
+        ),
       },
     ],
   },

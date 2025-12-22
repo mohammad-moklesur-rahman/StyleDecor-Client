@@ -87,14 +87,17 @@ const MyProfile = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">My Profile</h1>
+      <h2 className="text-2xl font-bold mb-6">My Profile</h2>
 
       {/* User Profile Card */}
       <div className="card bg-base-100 shadow-md mb-6">
         <div className="card-body">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <img
-              src={profile.photo}
+              src={
+                profile.photo ||
+                "https://img.icons8.com/?size=100&id=z-JBA_KtSkxG&format=png&color=000000"
+              }
               alt="profile"
               className="w-28 h-28 rounded-full object-cover"
             />

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [users, setUsers] = useState([]);
 
   const loadUsers = async () => {
-    const res = await axios.get("/users");
+    const res = await axiosSecure.get("/users");
     setUsers(res.data);
   };
 
@@ -15,7 +15,7 @@ const ManageUsers = () => {
   }, []);
 
   const changeRole = async (userId, role) => {
-    await axios.patch(`/users/role/${userId}`, { role });
+    await axiosSecure.patch(`/users/role/${userId}`, { role });
     loadUsers();
   };
 

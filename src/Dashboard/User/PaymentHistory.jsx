@@ -1,30 +1,28 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
 import { motion as Motion } from "framer-motion";
-import useAuth from "../../hooks/UseAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PaymentHistory = () => {
-  const { user } = useAuth();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`/stripe/payment-history?email=${user.email}`)
+    axiosSecure
+      .get(`/stripe/payment-history`)
       .then((res) => {
         setPayments(res.data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [axios]);
+  }, [axiosSecure]);
 
   return (
     <div className="w-full px-5 py-10">
       <Motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold mb-8 text-center"
+        className="text-2xl font-bold mb-6"
       >
         Payment History
       </Motion.h1>

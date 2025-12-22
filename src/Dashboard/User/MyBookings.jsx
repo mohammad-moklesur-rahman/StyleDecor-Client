@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyBookings = () => {
-  const axios = useAxios();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [bookings, setBookings] = useState([]);
@@ -14,24 +12,26 @@ const MyBookings = () => {
   // Load bookings of logged-in user
   useEffect(() => {
     if (user?.email) {
-      axios.get(`/bookings?email=${user.email}`).then((res) => {
+      axiosSecure.get(`/bookings`).then((res) => {
         setBookings(res.data);
         setLoading(false);
       });
     }
-  }, [axios, user]);
+  }, [axiosSecure, user]);
 
   // Stripe Payment
   const handlePayment = async (id) => {
     try {
-      const { data } = await axios.post("/stripe/create-checkout-session", {
-        bookingId: id,
-        userId: user._id,
-        userEmail: user.email,
-      });
+      const { data } = await axiosSecure.post(
+        "/stripe/create-checkout-session",
+        {
+          bookingId: id,
+          userId: user._id,
+          userEmail: user.email,
+        }
+      );
       window.location.href = data.url;
-    } catch (err) {
-      console.error(err);
+    } catch {
       Swal.fire("Error!", "Payment could not be initiated.", "error");
     }
   };
@@ -64,7 +64,7 @@ const MyBookings = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6 text-primary">My Bookings</h2>
+      <h2 className="text-2xl font-bold mb-6">My Bookings</h2>
 
       {bookings.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">No bookings found.</p>

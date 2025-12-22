@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Button from "../components/Shared/Button";
 
 import { Cloudinary } from "@cloudinary/url-gen";
@@ -14,8 +14,21 @@ import useAuth from "../hooks/UseAuth";
 import { updateProfile } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { useSaveOrUpdateUser } from "../utils/UserDataFunc";
+import AuthLoading from "../components/Shared/AuthLoading";
 
 const Register = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  // * navigate previous path
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [user, from, navigate]);
+
   const {
     register,
     handleSubmit,
@@ -24,7 +37,8 @@ const Register = () => {
   } = useForm();
   const [show, setShow] = useState(true);
   const [imagePublicId, setImagePublicId] = useState("");
-  const { signUpWithEmailAndPassWord, setUser, signInWithGoogle } = useAuth();
+  const { signUpWithEmailAndPassWord, setUser, signInWithGoogle, authLoading } =
+    useAuth();
   const saveOrUpdateUser = useSaveOrUpdateUser();
 
   const cloudName = `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}`; // Cloudinary cloud name
@@ -99,6 +113,8 @@ const Register = () => {
       photo: user?.photoURL,
     });
   };
+
+  if (authLoading) return <AuthLoading />;
 
   return (
     <div className="bg-[#FEEAC9]">

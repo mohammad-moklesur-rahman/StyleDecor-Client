@@ -11,7 +11,9 @@ const ServiceCoverageMap = () => {
       <MyContainer>
         <div className="px-4 text-center">
           {/* Section Title */}
-          <h2 className="text-3xl font-bold mb-4">Our Service Coverage</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Our Service Coverage
+          </h2>
           <p className="mb-8 text-base-content/70">
             We currently provide decoration and consultation services in these
             areas.

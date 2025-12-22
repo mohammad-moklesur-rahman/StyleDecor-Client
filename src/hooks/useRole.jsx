@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useAuth from "./useAuth";
+import useAuth from "./UseAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
 const useRole = () => {
@@ -7,23 +7,27 @@ const useRole = () => {
   const axiosSecure = useAxiosSecure();
 
   const [role, setRole] = useState(null);
+  const [roleLoading, setRoleLoading] = useState(true);
 
   useEffect(() => {
-    // wait until auth loading finished and user exists
     if (!authLoading && user?.email) {
+      setRoleLoading(true);
+
       axiosSecure
         .get("/users/role")
         .then((res) => {
           setRole(res.data.role);
         })
-        .catch((error) => {
-          console.error("Failed to fetch role", error);
+        .catch(() => {
           setRole(null);
+        })
+        .finally(() => {
+          setRoleLoading(false);
         });
     }
   }, [user?.email, authLoading, axiosSecure]);
 
-  return { role };
+  return { role, authLoading, roleLoading };
 };
 
 export default useRole;

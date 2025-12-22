@@ -178,6 +178,19 @@ const DashboardLayout = () => {
             )}
             {role === "admin" && (
               <>
+                {/* Add service*/}
+                <li>
+                  <Link
+                    to="/dashboard/add-service"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
+                    data-tip="Add Service"
+                  >
+                    {/* add document icon */}
+                    <HiOutlineDocumentAdd size={20} />
+                    <span className="is-drawer-close:hidden">Add Service</span>
+                  </Link>
+                </li>
+
                 {/* Manage Users*/}
                 <li>
                   <Link
@@ -233,19 +246,6 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       Manage Bookings
                     </span>
-                  </Link>
-                </li>
-
-                {/* Add service*/}
-                <li>
-                  <Link
-                    to="/dashboard/add-service"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-2.5 text-base-100 font-semibold"
-                    data-tip="Add Service"
-                  >
-                    {/* add document icon */}
-                    <HiOutlineDocumentAdd size={20} />
-                    <span className="is-drawer-close:hidden">Add Service</span>
                   </Link>
                 </li>
               </>

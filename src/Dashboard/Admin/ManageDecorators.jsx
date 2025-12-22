@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ManageDecorators = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [decorators, setDecorators] = useState([]);
 
   useEffect(() => {
-    axios.get("/decorators").then((res) => {
+    axiosSecure.get("/decorators").then((res) => {
       setDecorators(res.data);
     });
-  }, [axios]);
+  }, [axiosSecure]);
 
   const approve = async (id) => {
-    await axios.patch(`/decorators/approve/${id}`);
+    await axiosSecure.patch(`/decorators/approve/${id}`);
     refresh();
   };
 
   const disable = async (id) => {
-    await axios.patch(`/decorators/disable/${id}`);
+    await axiosSecure.patch(`/decorators/disable/${id}`);
     refresh();
   };
 
   const refresh = async () => {
-    const res = await axios.get("/decorators");
+    const res = await axiosSecure.get("/decorators");
     setDecorators(res.data);
   };
 

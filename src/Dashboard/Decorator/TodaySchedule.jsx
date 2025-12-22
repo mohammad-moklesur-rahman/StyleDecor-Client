@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const TodaySchedule = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [schedule, setSchedule] = useState([]);
 
   useEffect(() => {
-    axios
+    axiosSecure
       .get("/decorators/today-schedule")
       .then((res) => setSchedule(res.data));
-  }, [axios]);
+  }, [axiosSecure]);
 
   return (
     <div className="p-6">
@@ -22,7 +22,7 @@ const TodaySchedule = () => {
       <div className="grid md:grid-cols-2 gap-4">
         {schedule.map((job) => (
           <div key={job._id} className="border p-4 rounded shadow">
-            <h2 className="font-semibold text-lg">{job.service_name}</h2>
+            <h2 className="text-2xl font-bold mb-6">{job.service_name}</h2>
             <p>Location: {job.location}</p>
             <p>📅 Date: {job.booking_date}</p>
             <p className="mt-2">

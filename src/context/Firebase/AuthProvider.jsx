@@ -10,7 +10,7 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../../firebase/Firebase.config";
-
+import AuthLoading from "../../components/Shared/AuthLoading";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
   };
 
   if (authLoading) {
-    return <h2>Loading...</h2>;
+    return <AuthLoading />;
   }
 
   return <AuthContext value={authInfo}>{children}</AuthContext>;

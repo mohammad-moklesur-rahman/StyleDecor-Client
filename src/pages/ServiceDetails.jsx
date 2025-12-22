@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 
 import useAxios from "../hooks/useAxios";
-import { useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 
 import BookingModal from "../components/Services/ServiceDetails/BookingModal";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/UseAuth";
 
 const ServiceDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const axios = useAxios();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -57,7 +57,11 @@ const ServiceDetails = () => {
       <button
         onClick={() => {
           if (!user) {
-            return alert("Please login first to book.");
+            navigate("/login", {
+              state: { from: location }, // save current page
+              replace: true,
+            });
+            return;
           }
           setOpenModal(true);
         }}

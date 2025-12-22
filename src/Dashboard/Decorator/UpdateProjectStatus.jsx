@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const UpdateProjectStatus = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -10,19 +10,19 @@ const UpdateProjectStatus = () => {
   }, []);
 
   const loadProjects = async () => {
-    await axios
+    await axiosSecure
       .get("/decorators/my-projects")
       .then((res) => setProjects(res.data));
   };
 
   const handleStatusChange = async (id, dec_status) => {
-    await axios.patch(`/decorators/update-status/${id}`, { dec_status });
+    await axiosSecure.patch(`/decorators/update-status/${id}`, { dec_status });
     loadProjects();
   };
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Update Project Status</h1>
+      <h2 className="text-2xl font-bold mb-6">Update Project Status</h2>
 
       <table className="w-full border">
         <thead className="bg-gray-100">

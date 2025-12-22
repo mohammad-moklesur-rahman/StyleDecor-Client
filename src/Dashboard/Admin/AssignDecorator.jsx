@@ -5,42 +5,47 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 const AssignDecorator = () => {
   const axios = useAxios();
   const axiosSecure = useAxiosSecure();
+
   const [bookings, setBookings] = useState([]);
   const [decorators, setDecorators] = useState([]);
   const [selectedDecorator, setSelectedDecorator] = useState({});
   const [loading, setLoading] = useState(false);
 
-  // Load paid bookings
+  // Load ONLY paid & not assigned bookings
   useEffect(() => {
-    axios
-      .get("/bookings/paid?dec_status=not assigned") // backend filter
-      .then((res) => setBookings(res.data));
+    axios.get("/bookings/unassigned").then((res) => {
+      setBookings(res.data);
+    });
   }, [axios]);
 
   // Load available decorators
   useEffect(() => {
-    axios.get("/decorators/available").then((res) => setDecorators(res.data));
+    axios.get("/decorators/available").then((res) => {
+      setDecorators(res.data);
+    });
   }, [axios]);
 
   const handleAssign = async (bookingId) => {
-    if (!selectedDecorator[bookingId]) {
+    const decoratorId = selectedDecorator[bookingId];
+    if (!decoratorId) {
       alert("Please select a decorator");
       return;
     }
 
     try {
       setLoading(true);
+
       await axiosSecure.patch("/decorators/assign-decorator", {
         bookingId,
-        decoratorId: selectedDecorator[bookingId],
+        decoratorId,
       });
 
       alert("Decorator assigned successfully!");
 
-      // remove booking from UI after assign
+      // Remove assigned booking from UI
       setBookings((prev) => prev.filter((b) => b._id !== bookingId));
     } catch (error) {
-      alert(error.response?.data?.message || "Failed");
+      alert(error.response?.data?.message || "Failed to assign decorator");
     } finally {
       setLoading(false);
     }
@@ -69,11 +74,12 @@ const AssignDecorator = () => {
               <td className="border p-2">
                 <select
                   className="border p-1 w-full"
+                  value={selectedDecorator[booking._id] || ""}
                   onChange={(e) =>
-                    setSelectedDecorator({
-                      ...selectedDecorator,
+                    setSelectedDecorator((prev) => ({
+                      ...prev,
                       [booking._id]: e.target.value,
-                    })
+                    }))
                   }
                 >
                   <option value="">Select Decorator</option>
@@ -89,7 +95,7 @@ const AssignDecorator = () => {
                 <button
                   disabled={loading}
                   onClick={() => handleAssign(booking._id)}
-                  className="bg-blue-600 text-white px-3 py-1 rounded"
+                  className="bg-blue-600 text-white px-3 py-1 rounded disabled:opacity-50"
                 >
                   Assign
                 </button>
@@ -100,7 +106,7 @@ const AssignDecorator = () => {
       </table>
 
       {bookings.length === 0 && (
-        <p className="text-center mt-4">No paid bookings available</p>
+        <p className="text-center mt-4">No paid unassigned bookings</p>
       )}
     </div>
   );

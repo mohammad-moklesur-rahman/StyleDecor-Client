@@ -42,7 +42,9 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">Navbar Title</div>
+          <Link to="/dashboard" className="px-4">
+            Dashboard
+          </Link>
         </nav>
         {/* Page content here */}
         <div className="p-4">

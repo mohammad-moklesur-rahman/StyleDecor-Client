@@ -22,11 +22,13 @@ import DashboardHome from "../Dashboard/DashboardHome";
 import PrivateRoute from "./PrivateRoute";
 import DecoratorRoute from "./DecoratorRoute";
 import AdminRoute from "./AdminRoute";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,

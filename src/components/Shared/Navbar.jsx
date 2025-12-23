@@ -176,7 +176,7 @@ const Navbar = () => {
 
                   <ul
                     tabIndex="-1"
-                    className="dropdown-content menu bg-secondary rounded-box z-10 w-25 p-1 mt-2 shadow-sm"
+                    className="dropdown-content menu font-semibold bg-secondary rounded-box z-10 w-35 p-1 mt-2 shadow-sm"
                   >
                     <li>
                       <Link to="/dashboard">Dashboard</Link>

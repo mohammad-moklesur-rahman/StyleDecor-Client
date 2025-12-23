@@ -63,55 +63,132 @@ const MyBookings = () => {
   if (loading) return <p className="text-center py-20">Loading bookings...</p>;
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">My Bookings</h2>
+    <div className="max-w-6xl mx-auto p-4 md:p-6">
+      <h2 className="text-2xl font-bold mb-6 text-center md:text-left">
+        My Bookings
+      </h2>
 
       {bookings.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">No bookings found.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
-            <thead className="bg-base-200 text-base">
-              <tr>
-                <th>#</th>
-                <th>Service</th>
-                <th>Booking Date</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Payment</th>
-                <th>Cancel</th>
-              </tr>
-            </thead>
+        <>
+          {/* ===================== */}
+          {/* DESKTOP TABLE VIEW */}
+          {/* ===================== */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="table table-zebra w-full">
+              <thead className="bg-base-200">
+                <tr>
+                  <th>#</th>
+                  <th>Service</th>
+                  <th>Date</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Payment</th>
+                  <th>Cancel</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {bookings.map((booking, index) => (
-                <tr key={booking._id}>
-                  <td>{index + 1}</td>
+              <tbody>
+                {bookings.map((booking, index) => (
+                  <tr key={booking._id}>
+                    <td>{index + 1}</td>
 
-                  {/* Service Info */}
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={booking.service_image}
-                        className="w-16 h-16 rounded-lg object-cover"
-                      />
-                      <div>
-                        <p className="font-bold">{booking.service_name}</p>
-                        <p className="text-sm text-gray-500">
-                          {booking.cost} BDT
-                        </p>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={booking.service_image}
+                          className="w-14 h-14 rounded object-cover"
+                        />
+                        <div>
+                          <p className="font-semibold">
+                            {booking.service_name}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {booking.cost} BDT
+                          </p>
+                        </div>
                       </div>
+                    </td>
+
+                    <td>{booking.booking_date}</td>
+                    <td>{booking.location}</td>
+
+                    <td>
+                      <span
+                        className={`badge ${
+                          booking.status === "Completed"
+                            ? "badge-success"
+                            : booking.status === "Pending"
+                            ? "badge-warning"
+                            : "badge-info"
+                        }`}
+                      >
+                        {booking.status}
+                      </span>
+                    </td>
+
+                    <td>
+                      {booking.paid ? (
+                        <span className="badge badge-success">Paid</span>
+                      ) : (
+                        <button
+                          onClick={() => handlePayment(booking._id)}
+                          className="btn btn-xs btn-primary"
+                        >
+                          Pay Now
+                        </button>
+                      )}
+                    </td>
+
+                    <td>
+                      {!booking.paid ? (
+                        <button
+                          onClick={() => handleCancel(booking._id)}
+                          className="btn btn-xs btn-error"
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <button className="btn btn-xs btn-disabled">
+                          Locked
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ===================== */}
+          {/* MOBILE CARD VIEW */}
+          {/* ===================== */}
+          <div className="grid gap-4 md:hidden">
+            {bookings.map((booking) => (
+              <div
+                key={booking._id}
+                className="card bg-base-100 shadow-md border"
+              >
+                <div className="card-body p-4">
+                  <div className="flex gap-4">
+                    <img
+                      src={booking.service_image}
+                      className="w-20 h-20 rounded object-cover"
+                    />
+                    <div>
+                      <h3 className="font-bold text-lg">
+                        {booking.service_name}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {booking.cost} BDT
+                      </p>
+                      <p className="text-sm">📅 {booking.booking_date}</p>
+                      <p className="text-sm">📍 {booking.location}</p>
                     </div>
-                  </td>
+                  </div>
 
-                  {/* Booking Date */}
-                  <td>{booking.booking_date}</td>
-
-                  {/* Location */}
-                  <td>{booking.location}</td>
-
-                  {/* Status */}
-                  <td>
+                  <div className="flex justify-between items-center mt-4">
                     <span
                       className={`badge ${
                         booking.status === "Completed"
@@ -123,10 +200,7 @@ const MyBookings = () => {
                     >
                       {booking.status}
                     </span>
-                  </td>
 
-                  {/* Payment */}
-                  <td>
                     {booking.paid ? (
                       <span className="badge badge-success">Paid</span>
                     ) : (
@@ -134,31 +208,24 @@ const MyBookings = () => {
                         onClick={() => handlePayment(booking._id)}
                         className="btn btn-sm btn-primary"
                       >
-                        Pay Now
+                        Pay
                       </button>
                     )}
-                  </td>
+                  </div>
 
-                  {/* Cancel */}
-                  <td>
-                    {!booking.paid ? (
-                      <button
-                        className="btn btn-sm btn-error"
-                        onClick={() => handleCancel(booking._id)}
-                      >
-                        Cancel
-                      </button>
-                    ) : (
-                      <button className="btn btn-sm btn-disabled">
-                        Locked
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  {!booking.paid && (
+                    <button
+                      onClick={() => handleCancel(booking._id)}
+                      className="btn btn-sm btn-error mt-3 w-full"
+                    >
+                      Cancel Booking
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

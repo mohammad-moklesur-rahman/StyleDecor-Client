@@ -69,6 +69,7 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     Component: DashboardLayout,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,

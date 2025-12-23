@@ -23,6 +23,8 @@ import PrivateRoute from "./PrivateRoute";
 import DecoratorRoute from "./DecoratorRoute";
 import AdminRoute from "./AdminRoute";
 import NotFound from "../pages/NotFound";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -48,11 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: "about",
-        Component: Home,
+        Component: About,
       },
       {
         path: "contact",
-        Component: Home,
+        Component: Contact,
       },
       {
         path: "login",

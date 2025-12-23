@@ -2,7 +2,7 @@
 
 ## 🔗 Live Website
 
-<a target="_blank" href="https://styledecor-client.vercel.app/">Live Link</a>
+<a target="_blank" href="https://styledecor-bdb71.web.app/">Live Link</a>
 
 ## 📌 Project Purpose
 
